@@ -48,13 +48,18 @@ export default function App() {
       }
     })
     setPalavraJogo(novaPalavraJogo)
-
     // ganhar
 
   }
 
   function errouLetra(letraClicada) {
-    console.log("Errou")
+    const novosErros = erros + 1
+    setErros(novosErros)
+
+    // perdeu
+    if (novosErros === 6) {
+
+    }
   }
 
   return (
