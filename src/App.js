@@ -37,7 +37,7 @@ export default function App() {
 
   function clicarLetra(letraClicada) {
     setLetrasUsadas([...letrasUsadas, letraClicada])
-    if (palavraEscolhida.includes(letraClicada)) {
+    if (desconsiderarAcentos(palavraEscolhida).includes(letraClicada)) {
       acertouLetra(letraClicada)
     } else {
       errouLetra(letraClicada)
@@ -48,7 +48,7 @@ export default function App() {
     const novaPalavraJogo = [...palavraJogo]
 
     palavraEscolhida.forEach((letraEscolhida, i) => {
-      if (palavraEscolhida[i] === letraClicada) {
+      if (desconsiderarAcentos(palavraEscolhida)[i] === letraClicada) {
         novaPalavraJogo[i] = letraEscolhida
       }
     })
@@ -96,6 +96,13 @@ export default function App() {
       alert("Você errou o chute e por isso perdeu :(")
     }
     finalizarJogo()
+  }
+
+  function desconsiderarAcentos(arrayPalavra) {
+    let stringPalavra = ""
+    arrayPalavra.forEach((letra) => stringPalavra += letra)
+
+    return stringPalavra.replace("ç", "c").normalize('NFD').replace(/[\u0300-\u036f]/g, "")
   }
 
   return (
