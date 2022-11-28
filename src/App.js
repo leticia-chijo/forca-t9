@@ -32,12 +32,35 @@ export default function App() {
 
   function clicarLetra(letraClicada) {
     setLetrasUsadas([...letrasUsadas, letraClicada])
+    if (palavraEscolhida.includes(letraClicada)) {
+      acertouLetra(letraClicada)
+    } else {
+      errouLetra(letraClicada)
+    }
+  }
+
+  function acertouLetra(letraClicada) {
+    const novaPalavraJogo = [...palavraJogo]
+
+    palavraEscolhida.forEach((letraEscolhida, i) => {
+      if (palavraEscolhida[i] === letraClicada) {
+        novaPalavraJogo[i] = letraEscolhida
+      }
+    })
+    setPalavraJogo(novaPalavraJogo)
+
+    // ganhar
+
+  }
+
+  function errouLetra(letraClicada) {
+    console.log("Errou")
   }
 
   return (
     <div className="container-tela">
       <Jogo iniciarJogo={iniciarJogo} erros={erros} palavraJogo={palavraJogo} />
-      <Letras letrasUsadas={letrasUsadas} clicarLetra={clicarLetra}/>
+      <Letras letrasUsadas={letrasUsadas} clicarLetra={clicarLetra} />
       <Chute desabilitarInput={desabilitarInput} />
     </div>
   )
