@@ -11,6 +11,7 @@ export default function App() {
   const [erros, setErros] = useState(0)                           // quantidade de erros cometidos
   const [palavraJogo, setPalavraJogo] = useState([])              // palavra que está sendo adivinhada
   const [palavraEscolhida, setPalavraEscolhida] = useState([])    // palavra que foi sorteada
+  const [corPalavra, setCorPalavra] = useState("preto")           // cor que a palavra aparece na tela
 
   function iniciarJogo() {
     sortearPalavra()
@@ -48,7 +49,12 @@ export default function App() {
       }
     })
     setPalavraJogo(novaPalavraJogo)
-    // ganhar
+
+    // verificar se ganhou
+    if (!novaPalavraJogo.includes(" _")) {
+      setCorPalavra("verde")
+      finalizarJogo()
+    }
 
   }
 
@@ -62,9 +68,14 @@ export default function App() {
     }
   }
 
+  function finalizarJogo() {
+    setLetrasUsadas(alfabeto)
+    setDesabilitarInput(true)
+  }
+
   return (
     <div className="container-tela">
-      <Jogo iniciarJogo={iniciarJogo} erros={erros} palavraJogo={palavraJogo} />
+      <Jogo iniciarJogo={iniciarJogo} erros={erros} palavraJogo={palavraJogo} corPalavra={corPalavra} />
       <Letras letrasUsadas={letrasUsadas} clicarLetra={clicarLetra} />
       <Chute desabilitarInput={desabilitarInput} />
     </div>
