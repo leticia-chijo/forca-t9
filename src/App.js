@@ -6,11 +6,17 @@ import alfabeto from "./alfabeto"
 
 export default function App() {
   const [desabilitarInput, setDesabilitarInput] = useState(true)  // desabilitar input
-  const [letrasUsadas, setLetrasUsadas] = useState(alfabeto)      // letras que o usuário já usou
+  const [letrasUsadas, setLetrasUsadas] = useState(alfabeto)      // letras que ficarão desabilitadas
+  const [erros, setErros] = useState(0)                           // quantidade de erros cometidos
+
+  function iniciarJogo() {
+    setDesabilitarInput(false)
+    setLetrasUsadas([])
+  }
 
   return (
     <div className="container-tela">
-      <Jogo />
+      <Jogo iniciarJogo={iniciarJogo} erros={erros}/>
       <Letras letrasUsadas={letrasUsadas}/>
       <Chute desabilitarInput={desabilitarInput}/>
     </div>
