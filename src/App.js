@@ -12,6 +12,7 @@ export default function App() {
   const [palavraJogo, setPalavraJogo] = useState([])              // palavra que está sendo adivinhada
   const [palavraEscolhida, setPalavraEscolhida] = useState([])    // palavra que foi sorteada
   const [corPalavra, setCorPalavra] = useState("preto")           // cor que a palavra aparece na tela
+  const [chute, setChute] = useState("")                          // input controlado do chute
 
   function iniciarJogo() {
     sortearPalavra()
@@ -19,6 +20,7 @@ export default function App() {
     setLetrasUsadas([])
     setErros(0)
     setCorPalavra("preto")
+    setChute("")
   }
 
   function sortearPalavra() {
@@ -26,7 +28,6 @@ export default function App() {
     const palavra = palavras[i]
     const palavraArray = palavra.split("")
     setPalavraEscolhida(palavraArray)
-    console.log(palavra)
 
     let tracinhos = []
     palavraArray.forEach(() => tracinhos.push(" _"))
@@ -77,11 +78,43 @@ export default function App() {
     setPalavraJogo(palavraEscolhida)
   }
 
+  function chutarPalavraInteira() {
+    // palavra escolhida => array
+    // palavra do input => string
+
+    let palavraEscolhidaString = ""
+    palavraEscolhida.forEach(letra => palavraEscolhidaString += letra)
+
+    if (chute === palavraEscolhidaString) {
+      // ganhou
+      setCorPalavra("verde")
+    } else {
+      // perdeu
+      setCorPalavra("vermelho")
+      setErros(6)
+      alert("Você errou o chute e por isso perdeu :(")
+    }
+    finalizarJogo()
+  }
+
   return (
     <div className="container-tela">
-      <Jogo iniciarJogo={iniciarJogo} erros={erros} palavraJogo={palavraJogo} corPalavra={corPalavra} />
-      <Letras letrasUsadas={letrasUsadas} clicarLetra={clicarLetra} />
-      <Chute desabilitarInput={desabilitarInput} />
+      <Jogo
+        iniciarJogo={iniciarJogo}
+        erros={erros}
+        palavraJogo={palavraJogo}
+        corPalavra={corPalavra}
+      />
+      <Letras
+        letrasUsadas={letrasUsadas}
+        clicarLetra={clicarLetra}
+      />
+      <Chute
+        desabilitarInput={desabilitarInput}
+        chute={chute}
+        setChute={setChute}
+        chutarPalavraInteira={chutarPalavraInteira}
+      />
     </div>
   )
 }
