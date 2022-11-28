@@ -5,16 +5,61 @@ import forca3 from "../assets/forca3.png"
 import forca4 from "../assets/forca4.png"
 import forca5 from "../assets/forca5.png"
 import forca6 from "../assets/forca6.png"
+import styled from "styled-components"
 
 export default function Jogo(props) {
     const { iniciarJogo, erros, palavraJogo, corPalavra } = props
     const imagens = [forca0, forca1, forca2, forca3, forca4, forca5, forca6]
 
     return (
-        <div className="container-forca">
+        <ContainerForca>
             <img src={imagens[erros]} alt="forca" />
-            <button onClick={iniciarJogo}>Escolher Palavra</button>
-            <h1 className={corPalavra}>{palavraJogo}</h1>
-        </div>
+            <BotaoEscolher onClick={iniciarJogo}>Escolher Palavra</BotaoEscolher>
+            <Palavra corPalavra={corPalavra}>{palavraJogo}</Palavra>
+        </ContainerForca>
     )
 }
+
+const ContainerForca = styled.div`
+    display: flex;
+    align-items: flex-end;
+    width: 700px;
+    margin-bottom: 50px;
+    position: relative;
+    justify-content: space-between;
+    img {
+        width: 400px;
+    }
+`
+
+const BotaoEscolher = styled.button`
+    background-color: #27ae60;
+    border-radius: 8px;
+    border-style: none;
+    box-shadow: rgba(39, 174, 96, .15) 0 4px 9px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 15px 20px;
+    text-align: center;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    min-width: 150px;
+`
+
+const Palavra = styled.h1`
+    font-size: 40px;
+    margin-right: 5px;
+    font-family: "Segoe UI";
+    color: ${(props) => {
+        if(props.corPalavra === "vermelho"){
+            return "red"
+        } else if(props.corPalavra === "verde") {
+            return "#27ae60"
+        } else {
+            return "black"
+        }
+    }}
+`

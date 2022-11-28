@@ -4,6 +4,7 @@ import Jogo from "./components/Jogo"
 import Letras from "./components/Letras"
 import alfabeto from "./alfabeto"
 import palavras from "./palavras"
+import styled from "styled-components"
 
 export default function App() {
   const [desabilitarInput, setDesabilitarInput] = useState(true)  // desabilitar input
@@ -98,7 +99,7 @@ export default function App() {
   }
 
   return (
-    <div className="container-tela">
+    <ContainerTela>
       <Jogo
         iniciarJogo={iniciarJogo}
         erros={erros}
@@ -115,6 +116,15 @@ export default function App() {
         setChute={setChute}
         chutarPalavraInteira={chutarPalavraInteira}
       />
-    </div>
+    </ContainerTela>
   )
 }
+
+const ContainerTela = styled.div`
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
